@@ -13,8 +13,14 @@ app.get('/', (req, res) => {
 
 app.get('/:year', (req, res) => {
     const year = parseInt(req.params.year)
-    let animalId = ((year - 1900) % 12) 
-    animalId < 1 || animalId > 12 ? res.json("Invalid year") : res.json(animals[animalId])
+    let animalId = undefined
+    if (year <= 2000){
+        animalId = ((year - 1900) % 12) 
+    } else {
+        animalId = (((year - 2000) % 12) + 5)
+    }
+    animalId = ((year - 1900) % 12) 
+    animalId < 0 || animalId > 12 ? res.json("Invalid year") : res.json(animals[animalId])
 })
 
 export default app
